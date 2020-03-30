@@ -1,10 +1,9 @@
 package com.webservices.restfulwebservices.controllers;
 
 import com.webservices.restfulwebservices.dao.UserDaoService;
-import com.webservices.restfulwebservices.model.User;
 import com.webservices.restfulwebservices.exceptions.UserNotFoundException;
+import com.webservices.restfulwebservices.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 
 @RestController
@@ -42,21 +39,21 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/users/hateoas/{userId}")
-    public EntityModel<User> hateoasFindUserById(@PathVariable Integer userId) {
-        User user = daoService.findById(userId);
-        if (user == null) {
-            throw new UserNotFoundException("Not found user by userId: " + userId);
-        }
-        /**
-         * Add a link to refer all the users paths ('serverPath/users'). The link is that the method 'findAllUsers' expose
-         */
-        EntityModel<User> entityModel = new EntityModel<>(user);
-        entityModel.add(
-                linkTo(methodOn(this.getClass()).findAllUsers()).withSelfRel());
-
-        return entityModel;
-    }
+//    @GetMapping("/users/hateoas/{userId}")
+//    public EntityModel<User> hateoasFindUserById(@PathVariable Integer userId) {
+//        User user = daoService.findById(userId);
+//        if (user == null) {
+//            throw new UserNotFoundException("Not found user by userId: " + userId);
+//        }
+//        /**
+//         * Add a link to refer all the users paths ('serverPath/users'). The link is that the method 'findAllUsers' expose
+//         */
+//        EntityModel<User> entityModel = new EntityModel<>(user);
+//        entityModel.add(
+//                linkTo(methodOn(this.getClass()).findAllUsers()).withSelfRel());
+//
+//        return entityModel;
+//    }
 
     @PostMapping("/users")
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
