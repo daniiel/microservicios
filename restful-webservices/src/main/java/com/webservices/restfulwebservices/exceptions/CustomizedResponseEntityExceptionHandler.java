@@ -36,5 +36,4 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 new Date(), "Validation Failed", ex.getBindingResult().getAllErrors().toString());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
-
 }
